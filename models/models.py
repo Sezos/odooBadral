@@ -1,18 +1,27 @@
-# -*- coding: utf-8 -*-
-
-# from odoo import models, fields, api
+from odoo import models, fields, api
 
 
-# class badral(models.Model):
-#     _name = 'badral.badral'
-#     _description = 'badral.badral'
+class registration(models.Model):
+    _name = 'model.registration'
+    _description = 'registration_model'
+    _rec_name = "name"
+    name = fields.Char(required=True)
+    email = fields.Char(required=True)
+    age = fields.Integer(required=True)
+    phoneNumber = fields.Text(required=True)
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+
+class add(models.Model):
+    _name = 'model.add'
+    _description = 'add_model'
+    name = fields.Many2one('model.registration')
+    Calendar_ids = fields.One2many('model.calendar', 'name1')
+
+
+class Calendar(models.Model):
+    _name = 'model.calendar'
+    _description = "calendar_model"
+    name1 = fields.Many2one('model.add')
+    date = fields.Date(default=fields.Date.today, store=True)
+    time1 = fields.Float('Duration in hours ')
+    time2 = fields.Float('Duration in hours ')

@@ -1,24 +1,91 @@
 <odoo>
-    <data>
-<!--
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
-        </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
-            </t>
-          </dl>
-        </template>
--->
-    </data>
+  <record id = "reg_action" model = "ir.actions.act_window">
+    <field name = "name">Registration action</field>
+    <field name = "res_model">model.registration</field>
+    <field name = "view_mode">tree,form</field>
+    <field name = "help" type="html">
+      <p class = "o_view_nocontent_smiling_face">
+        Search not found, Maybe you can create one.
+      </p>
+    </field>
+  </record>
+
+
+  <record id = "add_action" model = "ir.actions.act_window">
+    <field name = "name">Add action</field>
+    <field name = "res_model">model.add</field>
+    <field name = "view_mode">tree,form</field>
+    <field name = "help" type="html">
+      <p class = "o_view_nocontent_smiling_face">
+        Search not found, Maybe you can create one on registration menu.
+      </p>
+    </field>
+  </record>
+  <menuitem id = "menu" name = "Badral" sequence = "7"/>
+  <menuitem id = "registration_menu" parent = "menu" name = "Register" sequence = "1" action = "reg_action"/>
+  <menuitem id = "add_menu" parent = "menu" name = "Add" sequence="2" action = "add_action"/>
+
+
+  <record id = "reg_action_form" model="ir.ui.view">
+    <field name = "name">Registration form</field>
+    <field name = "model">model.registration</field>
+    <field name = "arch" type = "xml">
+      <form string = "Create new.">
+        <sheet>
+          <group>
+            <field name = "name" string = "Name"/>
+            <field name = "age" string = "Age"/>
+            <field name = "phoneNumber" string = "Phone Number"/>
+            <field name = "email" string = "Email"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id = "reg_action_tree" model="ir.ui.view">
+    <field name = "name">Registration tree</field>
+    <field name = "model">model.registration</field>
+    <field name = "arch" type = "xml">
+      <tree string = "Created people">
+        <field name = "name" string = "Name"/>
+        <field name = "age" string = "Age"/>
+        <field name = "phoneNumber" string = "Phone Number"/>
+        <field name = "email" string = "Email"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id = "add_action_form" model="ir.ui.view">
+    <field name = "name">Add form</field>
+    <field name = "model">model.add</field>
+    <field name = "arch" type = "xml">
+      <form string = "Create new.">
+        <sheet>
+          <group>
+            <field  name = "name" string = "name"/>
+            <field name = "Calendar_ids">
+              <tree editable="1">
+                <field name = "date"/>
+                <field name = "time1" widget = "float_time" string="time1"/>
+                <field name = "time2" widget = "float_time"/>
+              </tree>
+            </field>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id = "add_action_tree" model="ir.ui.view">
+    <field name = "name">Add tree</field>
+    <field name = "model">model.add</field>
+    <field name = "arch" type = "xml">
+      <tree>
+        <field name = "name" string = "name"/>
+        <field name = "Calendar_ids" string = "ajilsan udur, tsaguud"/>
+      </tree>
+    </field>
+  </record>
+
+
 </odoo>
